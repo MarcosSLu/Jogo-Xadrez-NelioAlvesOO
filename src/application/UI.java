@@ -18,7 +18,11 @@ public class UI {
 			 System.out.print("-");
 		 }
 		 else {
+<<<<<<< HEAD
 			 System.out.print(piece);
+=======
+			 System.out.println(piece);
+>>>>>>> 172922141ecbf1852ab51d00c4cdc0ff0f4f20a6
 		 }
 		 System.out.print(" ");
 	 }

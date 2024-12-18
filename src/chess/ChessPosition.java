@@ -35,5 +35,5 @@ public class ChessPosition {
 		return "" + column + row;
 	}
 	
-	
-}
+}   
+        

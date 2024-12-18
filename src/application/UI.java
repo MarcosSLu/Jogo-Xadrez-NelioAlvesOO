@@ -1,5 +1,6 @@
 package application;
 
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -33,9 +34,24 @@ public class UI {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	
 	// https://stackoverflow.com/questions/2979383/java-clear-the-console
+	/*	public static void clearScreen() {
+			System.out.print("\033[H\033[2J");
+			System.out.flush();
+		}
+	*/
+	
+	//Solução alternativa
 	public static void clearScreen() {
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
+	    try {
+	        if (System.getProperty("os.name").contains("Windows")) {
+	            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+	        } else {
+	            System.out.print("\033[H\033[2J");
+	            System.out.flush();
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	public static ChessPosition readChessPosition(Scanner sc) {
@@ -56,9 +72,15 @@ public class UI {
 		printCapturedPieces(captured);
 		System.out.println();
 		System.out.println("Turn : " + chessMatch.getTurn());
-		System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
-		if(chessMatch.getCheck()) {
-			System.out.println("Check!");
+		if(!chessMatch.getCheckMate()) {
+			System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+			if(chessMatch.getCheck()) {
+				System.out.println("Check!");
+			}
+		}
+		else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
 		}
 		
 	}
